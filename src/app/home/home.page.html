@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      {{'profile'|translate}}<br>
+      <form class=" col-lg-2  my-3" role="search">
+        <select class="form-select" aria-label="Default select example" #langSelect
+          (change)="changeLang(langSelect.value)">
+          <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">
+            {{ lang |translate}}</option>
+        </select>
+      </form>
+    </ion-title>
+    <!-- <ion-item>
+      <ion-icon slot="start" name="moon-outline"></ion-icon>
+      <ion-label>
+        Dark Mode
+      </ion-label>
+      <ion-toggle [(ngModel)]="dark"></ion-toggle>
+    </ion-item> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-card class="ion-padding content_card">
+    <ion-card class="profile_card">
+      <div class="container">
+        <div class="outer" [ngStyle]="{'background-image': 'url(https://ionicframework.com/docs/img/demos/avatar.svg)'}">
+          <img class="upload_image" [src]="profilePicture">
+          <div class="inner" (click)="presentActionSheet()">
+            <ion-icon name="camera" class="camera-icon"></ion-icon>
+          </div>
+        </div>
+      </div>
+      <h5 class="text-center ma-4">User Profile Details</h5>
+    </ion-card>
+    <div>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <form [formGroup]="form" (ngSubmit)="Onsubmit()">
+              <ion-item>
+                <ion-label position="floating">First Name</ion-label>
+                <ion-input formControlName="FirstName"></ion-input>
+              </ion-item>
+              <div *ngIf="form.get('FirstName').touched && form.get('FirstName').hasError('required')">
+                FirstName is required
+              </div>
+              <div *ngIf="form.get('FirstName').touched && form.get('FirstName').hasError('pattern')">
+                FirstName must contain only letters
+              </div>
+              <ion-item>
+                <ion-label position="floating">Last Name</ion-label>
+                <ion-input formControlName="LastName"></ion-input>
+              </ion-item>
+              <div *ngIf="form.get('LastName').touched && form.get('LastName').hasError('required')">
+                LastName is required
+              </div>
+              <div *ngIf="form.get('LastName').touched && form.get('LastName').hasError('pattern')">
+                LastName must contain only letters
+              </div>
+              <ion-item>
+                <ion-label position="floating">Email</ion-label>
+                <ion-input formControlName="email"></ion-input>
+              </ion-item>
+              <div *ngIf="form.get('email').touched && form.get('email').hasError('required')">
+                Email is required
+              </div>
+              <div *ngIf="form.get('email').touched && form.get('email').hasError('pattern')">
+                Email is Invalid
+              </div>
+              <ion-item>
+                <ion-label position="floating">Mobile Number</ion-label>
+                <ion-input formControlName="MobilNumber"></ion-input>
+              </ion-item>
+              <div *ngIf="form.get('MobilNumber').touched && form.get('MobilNumber').hasError('required')">
+                MobilNumber is required
+              </div>
+              <div *ngIf="form.get('MobilNumber').touched && form.get('MobilNumber').hasError('pattern')">
+                Mobile number must be 10 digits && Numbers Only
+              </div>
+              <ion-item>
+                <ion-textarea placeholder="Address" formControlName="Address" [autoGrow]="true">
+                </ion-textarea>
+              </ion-item>
+              <div *ngIf="form.get('Address').touched && form.get('Address').hasError('required')">
+                Address is required
+              </div>
+              <ion-button class="mt-4" [disabled]="form.invalid" type="submit">Submit</ion-button>
+            </form>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-card>
+</ion-content>

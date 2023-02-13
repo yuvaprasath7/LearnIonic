@@ -1,0 +1,72 @@
+<!-- <form [formGroup]="otpForm" (ngSubmit)="generateOtp()">
+  <div>
+    <label for="mobileNumber">Mobile Number</label>
+    <input type="text" id="mobileNumber" formControlName="mobileNumber">
+    <div *ngIf="otpForm.get('mobileNumber').touched && otpForm.get('mobileNumber').hasError('required')">
+      Mobile number is required
+    </div>
+    <div *ngIf="otpForm.get('mobileNumber').touched && otpForm.get('mobileNumber').hasError('pattern')">
+      Mobile number must be 10 digits
+    </div>
+  </div>
+  <button type="submit">Generate OTP</button>
+</form> -->
+<!-- <ion-grid>
+  <ion-row>
+    <ion-col>
+      <form [formGroup]="otpForm" (ngSubmit)="generateOtp()">
+        <ion-item fill="solid">
+          <ion-label position="floating">Mobile Number</ion-label>
+          <ion-input type="text" id="mobileNumber" formControlName="mobileNumber" placeholder=""></ion-input>
+        </ion-item>
+        <div>
+          <div class="text-danger"
+            *ngIf="otpForm.get('mobileNumber').touched && otpForm.get('mobileNumber').hasError('required')">
+            Mobile number is required
+          </div>
+          <div class="text-danger"
+            *ngIf="otpForm.get('mobileNumber').touched && otpForm.get('mobileNumber').hasError('pattern')">
+            Mobile number must be 10 digits
+          </div>
+        </div>
+        <ion-button type="submit" size="small">Generate OTP</ion-button>
+        <ion-item>
+          <ion-label position="floating">OTP:</ion-label>
+          <ion-input type="text" formControlName="otp"></ion-input>
+        </ion-item>
+      </form>
+    </ion-col>
+  </ion-row>
+</ion-grid> -->
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      OTP Generator
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+<ion-grid>
+  <ion-row>
+    <ion-col></ion-col>
+    <ion-col>
+      <form [formGroup]="otpForm">
+        <ion-item>
+          <ion-label position="floating">Mobile Number</ion-label>
+          <ion-input formControlName="mobileNumber" type="tel"></ion-input>
+        </ion-item>
+        <ion-button (click)="generateOTP()" [disabled]="!otpForm.valid">Generate OTP</ion-button>
+        <ion-item >
+          <ion-label position="floating">OTP</ion-label>
+          <ion-input formControlName="otp" type="text"></ion-input>
+        </ion-item>
+      </form>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+</ion-grid>
+</ion-content>
+
+
+
