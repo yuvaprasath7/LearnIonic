@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { ActionSheetController, Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -13,7 +13,7 @@ export class HomePage {
   params: any;
   form: FormGroup | any
   dark = false;
-  constructor(public actionSheetController: ActionSheetController, public platform: Platform, public translate: TranslateService,) {
+  constructor(private renderer: Renderer2, public actionSheetController: ActionSheetController, public platform: Platform, public translate: TranslateService,) {
     translate.addLangs(['en', 'Hindi', 'Tamil', 'ban']);
     localStorage.setItem('locale', 'en');
     translate.setDefaultLang('en');
@@ -24,10 +24,22 @@ export class HomePage {
     this.changeLang('en');
   }
 
+
+  onToggleColorTheme(event: any) {
+    console.log(event.detail.checked)
+
+    if (event.detail.checked) {
+      this.renderer.setAttribute(document.body, 'color-theme', 'dark');
+    } else {
+      this.renderer.setAttribute(document.body, 'color-theme', 'light');
+    }
+
+  }
+
   FormValidation() {
     this.form = new FormGroup({
-      FirstName: new FormControl('', [Validators.required,  Validators.pattern('^[a-zA-Z]+$')]),
-      LastName: new FormControl('', [Validators.required,Validators.pattern('^[a-zA-Z]+$')]),
+      FirstName: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]),
+      LastName: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z]+$')]),
       email: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)]),
       MobilNumber: new FormControl('', [Validators.required, Validators.pattern(/^\d{10}$/)]),
       Address: new FormControl('', [Validators.required]),

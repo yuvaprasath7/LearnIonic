@@ -2,28 +2,33 @@
   <ion-toolbar>
     <ion-title>
       {{'profile'|translate}}<br>
-      <form class=" col-lg-2  my-3" role="search">
-        <select class="form-select" aria-label="Default select example" #langSelect
-          (change)="changeLang(langSelect.value)">
-          <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">
-            {{ lang |translate}}</option>
-        </select>
-      </form>
     </ion-title>
-    <!-- <ion-item>
-      <ion-icon slot="start" name="moon-outline"></ion-icon>
-      <ion-label>
-        Dark Mode
-      </ion-label>
-      <ion-toggle [(ngModel)]="dark"></ion-toggle>
-    </ion-item> -->
+    <ion-grid>
+      <ion-row>
+        <ion-col >
+          <form>
+            <select class="form-select" aria-label="Default select example" #langSelect
+              (change)="changeLang(langSelect.value)">
+              <option *ngFor="let lang of translate.getLangs()" [value]="lang"
+                [selected]="lang === translate.currentLang">
+                {{ lang |translate}}</option>
+            </select>
+          </form>
+        </ion-col>
+        <ion-col>
+          <ion-toggle (ionChange)="onToggleColorTheme($event)"></ion-toggle>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-toolbar>
 </ion-header>
+
 <ion-content [fullscreen]="true" class="ion-padding">
   <ion-card class="ion-padding content_card">
     <ion-card class="profile_card">
       <div class="container">
-        <div class="outer" [ngStyle]="{'background-image': 'url(https://ionicframework.com/docs/img/demos/avatar.svg)'}">
+        <div class="outer"
+          [ngStyle]="{'background-image': 'url(https://ionicframework.com/docs/img/demos/avatar.svg)'}">
           <img class="upload_image" [src]="profilePicture">
           <div class="inner" (click)="presentActionSheet()">
             <ion-icon name="camera" class="camera-icon"></ion-icon>
